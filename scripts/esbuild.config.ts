@@ -71,7 +71,6 @@ if (prod) {
 } else {
 	if (path.resolve(".") !== path.resolve(outDir)) {
 		watchCopyFile("manifest.json", path.join(outDir, "manifest.json"));
-		watchCopyFile("styles.css", path.join(outDir, "styles.css"));
 	}
 	await context.watch();
 }

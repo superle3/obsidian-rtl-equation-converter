@@ -2,7 +2,7 @@ import type {} from "@quartz-community/remark-obsidian";
 import remarkObsidian from "@quartz-community/remark-obsidian";
 import type { Root } from "mdast";
 import type {} from "mdast-util-math";
-import { Plugin, type TFile, type Vault } from "obsidian";
+import { Notice, Plugin, Setting, type TFile, type Vault } from "obsidian";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
@@ -20,9 +20,23 @@ export default class RTLConvertPlugin extends Plugin {
 				id: "convert-all-equations",
 				name: "Convert all equations",
 				callback: async () => {
-					for (const files of this.app.vault.getMarkdownFiles()) {
-						await this.converter.convertFile(files, this.app.vault);
-					}
+					const fragment = new DocumentFragment();
+					const notice = new Notice(fragment, 10e10);
+					const files = this.app.vault.getMarkdownFiles();
+					const div = notice.messageEl.createDiv();
+					notice.messageEl.createDiv({
+						text: `Converting ${files.length} files...`,
+					});
+					new Setting(div).addProgressBar(async (progress) => {
+						progress.setValue(0);
+
+						for (const [i, file] of files.entries()) {
+							await this.converter.convertFile(file, this.app.vault);
+							console.debug(`Converted ${file.path}`);
+							progress.setValue(((i + 1) / files.length) * 100);
+						}
+						notice.hide();
+					});
 				},
 			});
 			this.addCommand({
