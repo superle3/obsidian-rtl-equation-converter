@@ -5,9 +5,9 @@
 	"main": "main.js",
 	"type": "module",
 	"scripts": {
-		"dev": "jiti esbuild.config.mjs",
-		"build": "tsc -noEmit -skipLibCheck && jiti esbuild.config.mjs production",
-		"version": "jiti version-bump.mjs && git add manifest.json versions.json",
+		"dev": "jiti scripts/esbuild.config.ts",
+		"build": "tsc -noEmit -skipLibCheck && jiti scripts/esbuild.config.ts production",
+		"version": "jiti scripts/version-bump.ts && git add manifest.json versions.json",
 		"lint": "eslint ."
 	},
 	"keywords": [],
