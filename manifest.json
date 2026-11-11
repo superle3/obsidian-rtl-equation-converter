@@ -1,0 +1,9 @@
+{
+	"id": "rtl-convert-equations",
+	"name": "RTL Convert Equations",
+	"version": "1.0.0",
+	"minAppVersion": "1.14.0",
+	"description": "Convert equations to avoid rtl bug",
+	"author": "superle3",
+	"isDesktopOnly": false
+}
