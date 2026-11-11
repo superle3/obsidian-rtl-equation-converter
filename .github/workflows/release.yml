@@ -14,15 +14,13 @@ jobs:
       attestations: write
     steps:
       - uses: actions/checkout@v6
-      - name: Use Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
       - name: pnpm-setup
         uses: pnpm/setup@v1
         with:
           runtime: node@24
           cache: true
+          version: 12
+          install: false
 
       - name: Build plugin
         run: |
